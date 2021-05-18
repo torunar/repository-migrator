@@ -13,8 +13,8 @@ if __name__ == '__main__':
     for source_repository in migrated_repositories:
         print(source_repository)
 
-        cloned_source_repository = git.download(source_repository)
         destination_repository = github.create_repository(source_repository)
+        cloned_source_repository = git.download(source_repository)
 
         git.upload(cloned_source_repository, destination_repository)
         git.cleanup(cloned_source_repository)

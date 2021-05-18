@@ -29,8 +29,13 @@ class Github:
                                     auth=(self.login, self.password),
                                     headers={'Accept': 'application/vnd.github.v3+json'},
                                     **kwargs)
+        result = response.json()
+        if 'errors' in result:
+            raise Exception('GitHub API request failed: {}'.format(result['message']))
+        if not response.ok:
+            raise Exception('GitHub API request failed. Check your credentials and network connection')
 
-        return response.json()
+        return result
 
     def create_repository(self, vcs_repository):
         """Creates repository on GitHub.

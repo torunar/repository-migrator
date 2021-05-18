@@ -25,6 +25,8 @@ class Bitbucket:
         :rtype Any
         """
         response = requests.request(url=self.base_url + endpoint, auth=(self.login, self.password), **kwargs)
+        if not response.ok:
+            raise Exception('BitBucket API request failed. Check your credentials and network connection')
 
         return response.json()
 
