@@ -46,7 +46,7 @@ class Github:
         """
         repository_data = {
             'name': vcs_repository.name,
-            'description': vcs_repository.description,
+            'description': self.__normalize_description(vcs_repository.description),
             'private': vcs_repository.is_private
         }
         response = self.__request_api('user/repos', data=json.dumps(repository_data), method='POST')
@@ -55,3 +55,28 @@ class Github:
                              vcs_repository.description,
                              response['ssh_url'],
                              vcs_repository.is_private)
+
+    def repository_exists(self, vcs_repository):
+        """Checks whether a repository exists
+
+        :param VcsRepository vcs_repository: Repository to check
+        :return: Whether repository exists
+        :rtype bool
+        """
+        try:
+            self.__request_api('repos/{}/{}'.format(self.login, vcs_repository.name), method='GET')
+            return True
+        except:
+            pass
+
+        return False
+
+    @staticmethod
+    def __normalize_description(description):
+        """Removes control characters from repository description.
+
+        :param string description:
+        :return: Normalized description
+        :rtype string
+        """
+        return ' '.join(description.split())
