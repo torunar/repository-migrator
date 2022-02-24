@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 from vcsrepository import VcsRepository
@@ -49,3 +51,45 @@ class Bitbucket:
             repositories.append(VcsRepository(datum['slug'], datum['description'], clone_url, datum['is_private']))
 
         return repositories
+
+    def create_repository(self, vcs_repository):
+        """Creates repository on GitHub.
+
+        :param VcsRepository vcs_repository: Repository data
+        :return: Created repository
+        :rtype VcsRepository
+        """
+        repository_data = {
+            'is_private': vcs_repository.is_private,
+            'description': vcs_repository.description,
+        }
+
+        response = self.__request_api('repositories/{}/{}'.format(self.login, vcs_repository.name),
+                                      data=json.dumps(repository_data),
+                                      method='POST')
+
+        clone_url = None
+        for link in response['links']['clone']:
+            if link['name'] == 'ssh':
+                clone_url = link['href']
+                break
+
+        return VcsRepository(vcs_repository.name,
+                             vcs_repository.description,
+                             clone_url,
+                             vcs_repository.is_private)
+
+    def repository_exists(self, vcs_repository):
+        """Checks whether a repository exists
+
+        :param VcsRepository vcs_repository: Repository to check
+        :return: Whether repository exists
+        :rtype bool
+        """
+        try:
+            self.__request_api('repositories/{}/{}'.format(self.login, vcs_repository.name), method='GET')
+            return True
+        except:
+            pass
+
+        return False

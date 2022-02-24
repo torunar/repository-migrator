@@ -22,31 +22,49 @@ def get_cli_args_parser():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
+        '-i',
+        '--input',
+        dest='input',
+        required=True,
+        default='bitbucket',
+        choices=['bitbucket', 'github'],
+        help='Where repositories are migrated from'
+    )
+    parser.add_argument(
+        '-o',
+        '--output',
+        dest='output',
+        required=True,
+        default='github',
+        choices=['bitbucket', 'github'],
+        help='Where repositories are migrated to'
+    )
+    parser.add_argument(
         '-bl',
         '--bitbucket-login',
         dest='bitbucket_login',
-        required=True,
+        required=False,
         help='Bitbucket: Login'
     )
     parser.add_argument(
         '-bp',
         '--bitbucket-password',
         dest='bitbucket_password',
-        required=True,
+        required=False,
         help='Bitbucket: App password. Create one on https://bitbucket.org/account/settings/app-passwords/new'
     )
     parser.add_argument(
         '-gl',
         '--github-login',
         dest='github_login',
-        required=True,
+        required=False,
         help='Github: Login',
     )
     parser.add_argument(
         '-gp',
         '--github-password',
         dest='github_password',
-        required=True,
+        required=False,
         help='Github: Personal access token. Create one on https://github.com/settings/tokens/new'
     )
     parser.add_argument(

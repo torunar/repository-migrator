@@ -37,6 +37,21 @@ class Github:
 
         return result
 
+    def get_repositories(self):
+        """Gets repositories of a user.
+
+        :return:
+        :rtype list of VcsRepository
+        """
+
+        repositories_raw_data = self.__request_api('user/repos?affiliation=owner&per_page=100', method='GET')
+
+        repositories = []
+        for datum in repositories_raw_data:
+            repositories.append(VcsRepository(datum['name'], datum['description'], datum['html_url'], datum['private']))
+
+        return repositories
+
     def create_repository(self, vcs_repository):
         """Creates repository on GitHub.
 
