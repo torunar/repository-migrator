@@ -34,8 +34,8 @@ $ pip3 install -r requirements.txt
 5. To migrate from BitBucket to GitHub, use the following command:
 ```bash
 $ python3 bitbucket-to-github-migrator \
-    --input=bitbucket
-    --output=github
+    --input=bitbucket \
+    --output=github \
     --bitbucket-login='Your BitBucket username' \ 
     --bitbucket-password='App password from step 1' \
     --github-login='Your GitHub login' \
@@ -45,8 +45,8 @@ $ python3 bitbucket-to-github-migrator \
 6. To migrate from GitHub to BitBucket, use the following command: 
 ```bash
 $ python3 bitbucket-to-github-migrator \
-    --input=github
-    --output=bitbucket
+    --input=github \
+    --output=bitbucket \
     --bitbucket-login='Your BitBucket username' \ 
     --bitbucket-password='App password from step 1' \
     --github-login='Your GitHub login' \
