@@ -4,9 +4,11 @@
 
 # Repository Migrator
 
-Migrates repositories between BitBucket and GitHub.
+Migrates repositories between BitBucket, GitHub, and local storage.
 
-This tool works in both directions, so you can move your GitHub repositories to BitBucket and vice versa. 
+This tool works in both directions, so you can move your GitHub repositories to BitBucket and vice versa.
+
+You can also back up your repositories locally. 
 
 </center>
 
@@ -14,41 +16,62 @@ This tool works in both directions, so you can move your GitHub repositories to 
 
 * Python3.
 
-## How to use
+## Installation
 
-1. Create BitBucket app password with the `Repositories: Read`, `Repositories: Write` and `Repositories: Admin` permissions: 
+1. _(If you plan to use BitBucket)_ Create BitBucket app password with the `Repositories: Read`, `Repositories: Write` and `Repositories: Admin` permissions: 
 
     https://bitbucket.org/account/settings/app-passwords/new.
-3. Create GitHub personal access token with the `repo` scopes:
+3. _(If you plan to use GitHub)_ Create GitHub personal access token with the `repo` scopes:
 
     https://github.com/settings/tokens/new.
-4. Clone repo:
+4. Clone the tool repo:
 ```bash
-$ git clone git@github.com:torunar/bitbucket-to-github-migrator.git
+$ git clone git@github.com:torunar/repository-migrator.git
 ```
 4. Install dependencies:
 ```bash
-$ cd bitbucket-to-github-migrator
+$ cd repository-migrator
 $ pip3 install -r requirements.txt
 ```
-5. To migrate from BitBucket to GitHub, use the following command:
+
+## Usage
+
+### Migrate from BitBucket to GitHub
 ```bash
-$ python3 bitbucket-to-github-migrator \
+$ python3 repository-migrator \
     --input=bitbucket \
     --output=github \
     --bitbucket-login='Your BitBucket username' \ 
-    --bitbucket-password='App password from step 1' \
+    --bitbucket-password='App password from Installation step 1' \
     --github-login='Your GitHub login' \
-    --github-password='Personal access token from step 2' 
+    --github-password='Personal access token from Installation step 2' 
 ```
     
-6. To migrate from GitHub to BitBucket, use the following command: 
+### Migrate from GitHub to BitBucket 
 ```bash
-$ python3 bitbucket-to-github-migrator \
+$ python3 repository-migrator \
     --input=github \
     --output=bitbucket \
     --bitbucket-login='Your BitBucket username' \ 
-    --bitbucket-password='App password from step 1' \
+    --bitbucket-password='App password from Installation step 1' \
     --github-login='Your GitHub login' \
-    --github-password='Personal access token from step 2' 
+    --github-password='Personal access token from Installation step 2' 
+```
+
+### Back up repositories from GitHub
+```bash
+$ python3 repository-migrator \
+    --input=github \
+    --output=local \
+    --github-login='Your GitHub login' \
+    --github-password='Personal access token from Installation step 2' 
+```
+
+### Back up repositories from BitBucket 
+```bash
+$ python3 repository-migrator \
+    --input=bitbucket \
+    --output=local \
+    --bitbucket-login='Your BitBucket username' \ 
+    --bitbucket-password='App password from Installation step 1'  
 ```

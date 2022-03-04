@@ -36,7 +36,7 @@ def get_cli_args_parser():
         dest='output',
         required=True,
         default='github',
-        choices=['bitbucket', 'github'],
+        choices=['bitbucket', 'github', 'local'],
         help='Where repositories are migrated to'
     )
     parser.add_argument(
