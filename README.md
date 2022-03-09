@@ -1,6 +1,6 @@
-<center>
-
-![](img/logo.png)
+<p align="center">
+    <img src="https://raw.githubusercontent.com/torunar/repository-migrator/master/img/logo.png" alt="Logo" />
+</p>
 
 # Repository Migrator
 
@@ -9,8 +9,6 @@ Migrates repositories between BitBucket, GitHub, and local storage.
 This tool works in both directions, so you can move your GitHub repositories to BitBucket and vice versa.
 
 You can also back up your repositories locally. 
-
-</center>
 
 ## Requirements
 
